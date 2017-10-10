@@ -9,4 +9,4 @@
 if __name__ == '__main__':
     process_all_files(FILEPATH, 3)
 	
-Рекомендуемым интерпретатор: PyCharm
+Рекомендуемый интерпретатор: PyCharm
