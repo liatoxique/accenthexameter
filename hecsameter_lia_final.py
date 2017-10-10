@@ -270,13 +270,13 @@ def final_form(lines):
     return '\n'.join(res)
 
 
-def process_all_files(path, iters=1):
+def process_all_files(in_path, out_path=None, iters=1):
     all_texts = {}
     print('Loading texts from files')
-    for filename in os.listdir(path):
+    for filename in os.listdir(in_path):
         if '_PROCESSED' in filename:
             continue
-        with open(path + filename) as f:
+        with open(in_path + filename) as f:
             text = f.read()
         all_texts[filename.rsplit('.', 1)[0]] = [Line(l) for l in text.split('\n')]
 
@@ -285,9 +285,15 @@ def process_all_files(path, iters=1):
         for file in all_texts:
             print('File: {}.txt'.format(file))
             all_texts[file] = process_text(all_texts[file])
+
     print('\nSaving processed texts to files')
+    if out_path is None:
+        out_path = in_path
+        out_suff = '_PROCESSED'
+    else:
+        out_suff = ''
     for file in all_texts:
-        with open(path + file + '_PROCESSED.txt', 'w') as f:
+        with open(out_path + file + out_suff + '.txt', 'w') as f:
             f.write(final_form(all_texts[file]))
 
 if __name__ == '__main__':
