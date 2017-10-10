@@ -297,4 +297,4 @@ def process_all_files(in_path, out_path=None, iters=1):
             f.write(final_form(all_texts[file]))
 
 if __name__ == '__main__':
-    process_all_files(FILEPATH, 3)
+    process_all_files(FILEPATH, iters=3)
