@@ -149,13 +149,10 @@ class Word(object):
         if self.syl_count == 0:
             self.surface = []
             return
-        max_prob = max(self.structure())
-        if max_prob == 0:
-            self.surface = self.structure()
-        else:
-            self.surface = [1 if s == max_prob else 0 for s in self.structure()]
-            if sum(self.surface) != 1:
-                self.surface = [pos_float(s / sum(self.surface)) for s in self.surface]
+        scount = self.stress_counts().index(max(self.stress_counts()))
+        max_probs = sorted(self.structure(), reverse=True)[:scount]
+        max_probs = [m for m in max_probs if m != 0]
+        self.surface = [1 if s in max_probs else 0 for s in self.structure()]
 
     def text_with_stress(self):
         if self.syl_count == 0:
